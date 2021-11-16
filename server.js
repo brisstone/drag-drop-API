@@ -8,9 +8,7 @@ const app = express();
 
 app.use(cors());
 
-// dotenv.config();
 
-// parse application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -20,8 +18,11 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.listen(5000, () => {
-  console.log(`Server is up and running on 5000 ...`);
+// process.env.PORT lets the port be set by Heroku
+var port = process.env.PORT || 8080;
+
+app.listen(port, () => {
+  console.log(`Server is up and running on ${port}..`);
 });
 
 
@@ -33,7 +34,13 @@ app.listen(5000, () => {
 
   console.log('g',sevenDays)
 
-// Use Route Function from below Examples Here...
+
+
+app.get("/", cors(), (req, res, next) => {
+
+ res.send("WELCOME, USE METHODS")
+  
+});
 
 app.get("/api/customers", cors(), (req, res, next) => {
 
@@ -43,7 +50,7 @@ app.get("/api/customers", cors(), (req, res, next) => {
 
   });
 
-  // Call Route Function Here...
+ 
 });
 
 
@@ -117,10 +124,4 @@ app.post("/api/planner", cors(), async (req, res) => {
 });
 
 
- // var sql = "INSERT INTO `customers` (Customer_Name, Pick_Up_Location, Drop_off_Location) VALUES (, 'abuja k', 'Ikeja')";
-  // db_con.query(sql, function (err, result) {
-  //     if (err) throw err;
-  //     console.log("1 record inserted", result);
-  //   });
-  // Call Route Function Here...
 
